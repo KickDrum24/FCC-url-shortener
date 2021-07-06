@@ -30,7 +30,12 @@ app.post("/api/shorturl", function (req, res) {
     res.json({ error: 'invalid url' })
     return;
   }
-  res.json({ original_url: long, short_url: short })
+  if (/http/.test(long.slice(0,4)) == false) {
+    res.json({ error: 'invalid url' })
+    return;
+  } else {
+    res.json({ original_url: long, short_url: short })
+  }
 });
 
 //on submission of short url, redirect to long
